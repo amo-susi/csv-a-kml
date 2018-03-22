@@ -1,0 +1,17 @@
+# Csv-A-Kml
+
+## Usage
+
+## Installation
+
+## Author
+
+* Char (signed-char@protonmail.com)
+
+## Copyright
+
+Copyright (c) 2018 Char (signed-char@protonmail.com)
+
+## License
+
+Licensed under the MIT License.
