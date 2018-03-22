@@ -6,16 +6,24 @@
 #|
   Author: Char (signed-char@protonmail.com)
 |#
+(in-package :cl-user)
+(defpackage csv-a-kml-asd
+  (:use :cl :asdf))
+(in-package :csv-a-kml)
+
+#+quicklisp (ql:quickload :fare-csv)
+#-quicklisp (asdf:load-system :fare-csv)
 
 (defsystem "csv-a-kml"
-  :version "0.1.0"
+  :version "1.0.0"
   :author "Char"
   :license "MIT"
   :depends-on ()
   :components ((:module "src"
                 :components
-                ((:file "csv-a-kml"))))
-  :description ""
+                ((:file "csv-a-kml")
+		 (:file "package"))))
+  :description "Transformador de CSV a KML"
   :long-description
   #.(read-file-string
      (subpathname *load-pathname* "README.markdown"))
