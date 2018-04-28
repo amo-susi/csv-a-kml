@@ -6,19 +6,12 @@
 #|
   Author: Char (signed-char@protonmail.com)
 |#
-(in-package :cl-user)
-(defpackage csv-a-kml-asd
-  (:use :cl :asdf))
-(in-package :csv-a-kml)
-
-#+quicklisp (ql:quickload :fare-csv)
-#-quicklisp (asdf:load-system :fare-csv)
 
 (defsystem "csv-a-kml"
   :version "1.0.0"
   :author "Char"
   :license "MIT"
-  :depends-on ()
+  :depends-on (fare-csv)
   :components ((:module "src"
                 :components
                 ((:file "csv-a-kml")
