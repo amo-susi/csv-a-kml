@@ -34,7 +34,7 @@
 
 (defun kml-open-document (file-stream)
   (let ((open-document (melt 2 0)))
-    (format file-stream "~:(~a~)~%" close-document)))
+    (format file-stream "~:(~a~)~%" open-document)))
 
 (defun kml-close-document (file-stream)
   (let ((close-document (melt 2 1)))
@@ -58,8 +58,8 @@
 	(close-coordinates (melt 6 1))
 	(close-point (melt 5 1))
 	(close-placemark (melt 3 1)))
-    (format file-stream "  ~:(~a~)~%    ~(~a~a~a~)~%    ~:(~a~)~%      ~(~a~a,~a,~a~a~)~%    ~:(~a~)~%  ~:(~a~)~%" open-placemark open-name default-name close-name open-point open-coordinates first-elm
-	    second-elm third-elm close-coordinates close-point close-placemark)))
+    (format file-stream "  ~:(~a~)~%    ~(~a~a~a~)~%    ~:(~a~)~%      ~(~a~a~)~:[~*~;~(,~a~)~]~:[~*~;~(,~a~)~]~(~a~)~%    ~:(~a~)~%  ~:(~a~)~%" open-placemark open-name default-name close-name open-point open-coordinates first-elm
+	    second-elm second-elm third-elm third-elm close-coordinates close-point close-placemark)))
 
 (defun csv-a-kml (input-pathname output-pathname)
   "Create the kml file."
@@ -67,10 +67,12 @@
     (let* ((fare-csv:*separator* #\;)
 	   (file-stm (fare-csv:read-csv-file input-pathname)))
       (with-open-file (kml-stm output-pathname :direction :output
+			       :if-exists :supersede
 			       :if-does-not-exist :create)
 	(kml-header kml-stm)
 	(kml-open-document kml-stm)
 	(loop for in-lst in file-stm
-	   do (construccion-kml in-lst kml-stm))
+	   do (construction-kml in-lst kml-stm))
 	(kml-close-document kml-stm)
-	(kml-end kml-stm)))))
+	(kml-end kml-stm))
+      output-pathname)))
